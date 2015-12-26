@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "JPush.h"
 @interface AppDelegate ()
 
 @end
@@ -16,9 +16,31 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //注册极光推送
+    [JPush registerRemotePushService:application withOptions:launchOptions];
+    
     return YES;
 }
+
+//上传设备token
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [JPush registerDeviceToken:deviceToken];
+}
+
+// 处理收到的APNS消息，向服务器上报收到APNS消息
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [JPush handleRemoteNotification:userInfo];
+}
+
+//ios7
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [JPush handleRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
