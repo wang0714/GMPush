@@ -1,6 +1,6 @@
 # GMPush
 对第三方推送进行封装
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {/br
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {</p>
     //注册极光推送/br
     [JPush registerRemotePushService:application withOptions:launchOptions];/br
     
